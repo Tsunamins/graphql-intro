@@ -13,6 +13,14 @@ const typeDefs = `
         url: String!
     }
 `
+//add data to example since not yet in db
+let links = [{
+    id: 'link-0',
+    url: 'www.howtographql.com',
+    description: 'Fullstack tutorial for GraphQL'
+  }]
+
+
 // add a feed resolver; add Link resolvers
 const resolvers = {
     Query: {
