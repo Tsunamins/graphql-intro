@@ -1,23 +1,5 @@
 const { ApolloServer } = require('apollo-server');
 
-// add field, object; then define that object
-//add mutation definition for a post for a Link object
-const typeDefs = `
-    type Query {
-        info: String!
-        feed: [Link!]!  
-    }
-
-    type Mutation {
-        post(url: String!, description: String!): Link!
-    }
-
-    type Link {
-        id: ID!
-        description: String!
-        url: String!
-    }
-`
 //add data to example since not yet in db
 let links = [{
     id: 'link-0',
@@ -42,7 +24,10 @@ const resolvers = {
 
 
 const server = new ApolloServer ({
-    typeDefs,
+    typeDefs: fs.readFileSync(
+        path.join(__dirname, 'schema.graphql'),
+        'utf8'
+    ),
     resolvers,
 })
 
