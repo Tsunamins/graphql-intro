@@ -1,10 +1,15 @@
 const { ApolloServer } = require('apollo-server');
 
 // add field, object; then define that object
+//add mutation definition for a post for a Link object
 const typeDefs = `
     type Query {
         info: String!
         feed: [Link!]!  
+    }
+
+    type Mutation {
+        post(url: String!, description: String!): Link!
     }
 
     type Link {
