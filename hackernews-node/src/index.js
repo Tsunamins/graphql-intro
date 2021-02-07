@@ -10,18 +10,27 @@ let links = [{
   }]
 
 
-// add a feed resolver; add Link resolvers
+//find current length of data:
+let idCount = links.length
+
 const resolvers = {
     Query: {
         info: () => `This is the API of a Hackernews Clone`,
         feed: () => links,
     },
 
-    Link: {
-        id: (parent) => parent.id,
-        description: (parent) => parent.description,
-        url: (parent) => parent.url,
-    }
+    Mutation: {
+        post: (parent, args) => {
+            const link = {
+                id: `link-${idCount++}`, //increment count for id
+                description: args.description,
+                url: args.url,
+            }
+            links.push(link)
+            return link
+        }
+        
+    },
 }
 
 
