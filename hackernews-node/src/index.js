@@ -1,4 +1,6 @@
 const { ApolloServer } = require('apollo-server');
+const fs = require('fs');
+const path = require('path');
 
 //add data to example since not yet in db
 let links = [{
