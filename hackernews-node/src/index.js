@@ -1,9 +1,10 @@
 const { ApolloServer } = require('apollo-server');
 
+// add field, object; then define that object
 const typeDefs = `
     type Query {
         info: String!
-        feed: [Link!]!
+        feed: [Link!]!  
     }
 
     type Link {
@@ -12,10 +13,17 @@ const typeDefs = `
         url: String!
     }
 `
-
+// add a feed resolver; add Link resolvers
 const resolvers = {
     Query: {
-        info: () => `This is the API of a Hackernews Clone`
+        info: () => `This is the API of a Hackernews Clone`,
+        feed: () => links,
+    },
+
+    Link: {
+        id: (parent) => parent.id,
+        description: (parent) => parent.description,
+        url: (parent) => parent.url,
     }
 }
 
