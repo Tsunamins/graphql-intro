@@ -1,7 +1,9 @@
-function feed(parent, args, context, info) {
-    return context.prisma.link.findMany()
+
+//needed to resolve the postedBy field, bc graphql schema cannot infer
+function postedBy(parent, args, context) {
+    return context.prisma.link.findUnique({ where: { id: parent.id } }).postedBy()
   }
   
   module.exports = {
-    feed,
+    postedBy,
   }
