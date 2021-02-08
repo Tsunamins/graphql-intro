@@ -10,28 +10,11 @@ const Link = require('./resolvers/Link')
 
 //update fields to connect with context, from prisma
 const resolvers = {
-    Query: {
-        info: () => `This is the API of a Hackernews Clone`,
-        feed: () => async (parent, args, context) => {
-              return context.prisma.feed.findMany()
-        
-        },
-    },
-
-    Mutation: {
-        post: (parent, args, context, info) => {
-            const newLink = context.prisma.link.create({
-                data: {
-                    url: args.url,
-                    description: args.description,
-                },
-            })
-       
-            return newLink
-        },
-        
-    },
-}
+    Query,
+    Mutation,
+    User,
+    Link
+  }
 
 //instance of prisma here, to be placed into context below
 const prisma = new PrismaClient()
