@@ -34,6 +34,19 @@ async function login(parent, args, context, info){
     }
 }
 
+//mutation for creating a Link:
+async function post(parent, args, context, info) {
+    const { userId } = context; //using getUserId func built in utils
+  
+    return await context.prisma.link.create({
+      data: {
+        url: args.url,
+        description: args.description,
+        postedBy: { connect: { id: userId } },
+      }
+    })
+  }
+
 module.exports = {
     signup,
     login,
