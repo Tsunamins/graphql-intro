@@ -3,6 +3,10 @@ const { PrismaClient } = require('@prisma/client')
 const fs = require('fs');
 const path = require('path');
 const { getUserId } = require('./utils');
+const Query = require('./resolvers/Query')
+const Mutation = require('./resolvers/Mutation')
+const User = require('./resolvers/User')
+const Link = require('./resolvers/Link')
 
 //update fields to connect with context, from prisma
 const resolvers = {
