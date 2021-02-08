@@ -3,33 +3,26 @@ const { PrismaClient } = require('@prisma/client')
 const fs = require('fs');
 const path = require('path');
 
-//add data to example since not yet in db
-let links = [{
-    id: 'link-0',
-    url: 'www.howtographql.com',
-    description: 'Fullstack tutorial for GraphQL'
-  }]
-
-
-//find current length of data:
-let idCount = links.length
-
+//update fields to connect with context, from prisma
 const resolvers = {
     Query: {
         info: () => `This is the API of a Hackernews Clone`,
-        feed: () => links,
+        feed: () => async (parent, args, context) => {
+            return context.prisma.link.findMany()
+        },
     },
 
     Mutation: {
-        post: (parent, args) => {
-            const link = {
-                id: `link-${idCount++}`, //increment count for id
-                description: args.description,
-                url: args.url,
-            }
-            links.push(link)
-            return link
-        }
+        post: (parent, args, context, info) => {
+            const newLink = context.prisma.link.create({
+                data: {
+                    url: args.url,
+                    description: args.description,
+                },
+            })
+       
+            return newLink
+        },
         
     },
 }
